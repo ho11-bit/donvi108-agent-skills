@@ -1,0 +1,36 @@
+name: Publish free beta to MCP Registry
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+concurrency:
+  group: publish-donvi108-mcp
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'ho11-bit/donvi108-agent-skills'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Validate public client and live beta
+        run: |
+          set -euo pipefail
+          node --check skills/donvi108-research/scripts/client.mjs
+          python3 -m json.tool server.json >/dev/null
+          curl --fail --silent --show-error --max-time 30 https://donvi108-agent-hub-live-preview.donvi108.workers.dev/v1/beta | python3 -c 'import json,sys; d=json.load(sys.stdin)["data"]; assert d["status"]=="public_free_beta" and d["invitation_required"] is False and d["charge_enabled"] is False'
+      - name: Install pinned MCP publisher
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error --max-time 120 https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz --output publisher.tar.gz
+          echo 'a06c9096dcb9727c13555b6be26c7effa707b01f06a4c561ba7a3635443cf2cc  publisher.tar.gz' | sha256sum --check
+          tar -xzf publisher.tar.gz mcp-publisher
+      - name: Authenticate publisher through GitHub OIDC
+        run: ./mcp-publisher login github-oidc
+      - name: Publish remote service metadata
+        run: ./mcp-publisher publish

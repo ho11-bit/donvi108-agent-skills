@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.ho11-bit/donvi108-research",
+  "title": "DONVI108 Free Research Beta",
+  "description": "Free scholarly paper and DOI discovery via Crossref. Self-service registration; no invitation.",
+  "repository": {
+    "url": "https://github.com/ho11-bit/donvi108-agent-skills",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "websiteUrl": "https://donvi108-agent-hub-live-preview.donvi108.workers.dev/",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://donvi108-agent-hub-live-preview.donvi108.workers.dev/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer followed by a space and your DONVI108 agent token. Register free via the website quickstart first. Store this value privately.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
