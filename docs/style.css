@@ -1,0 +1,25 @@
+:root { color-scheme: light; font: 100%/1.55 "Segoe UI", system-ui, sans-serif; color: #18322f; background: #f8f9f4 }
+* { box-sizing: border-box }
+body { margin: 0 }
+header { border-bottom: 1px solid #cbd6cd; background: #e7eee6 }
+header div, main { max-width: 48rem; margin: auto; padding: 1rem clamp(1.1rem, 4vw, 2.8rem) }
+header div, .actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap }
+header div { justify-content: space-between }
+header a:first-child { font-weight: 750; text-decoration: none }
+a { color: #065c50; text-underline-offset: .16em }
+h1,h2 { font-family: Georgia, serif; font-weight: normal; line-height: 1.13 }
+h1 { font-size: clamp(2.7rem, 7vw, 4.2rem); margin: 1.4rem 0 .6rem }
+h2 { font-size: 1.75rem; margin: .65rem 0 }
+.intro { max-width: 61ch }
+form,section { padding: clamp(1rem, 3vw, 1.7rem); border: 1px solid #cbd6cd; background: white; border-radius: .5rem }
+label { display: block; font-weight: 650 }
+label span, footer p, #missing { font-size: .9rem; color: #45594e }
+input, textarea, button { font: inherit }
+input, textarea { padding: .62rem; margin: .26rem 0 1.1rem; display: block; width: 100%; border: 1px solid #8b9c91; border-radius: .25rem }
+button { padding: .54rem 1rem; border: 1px solid #075249; border-radius: .25rem; background: #075249; color: white; cursor: pointer }
+button.secondary { background: white; color: #075249 }
+button:disabled { opacity: .6; cursor: wait }
+:focus-visible { outline: 3px solid #ba640e; outline-offset: 2px }
+dt { font-weight: 650 } dd { margin: 0 0 .55rem; overflow-wrap: anywhere }
+details,footer { margin: 1.4rem 0; border-top: 1px solid #cbd6cd; padding-top: 1rem }
+summary { cursor: pointer } #comparison { color: #075249 } #result { overflow-wrap: anywhere }

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="vi">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Kiểm tra DOI, đối chiếu tiêu đề với Crossref và tải BibTeX cho Zotero. Check a scholarly reference without an account.">
+<title>Kiểm tra DOI · DONVI108 Research</title>
+<link rel="stylesheet" href="./style.css">
+<header><div><a href="https://github.com/ho11-bit/donvi108-agent-skills">DONVI108 Research</a>
+<a href="https://donvi108-agent-hub-live-preview.donvi108.workers.dev/research">Tìm theo chủ đề ↗</a></div></header>
+<main>
+  <h1>Kiểm tra DOI</h1>
+  <p class="intro">Dán DOI của bài báo để xem tác giả, năm xuất bản và tải trích dẫn cho Zotero. Nếu đã có tiêu đề, anh chị có thể đối chiếu ngay.</p>
+  <form id="lookup">
+    <label for="doi">DOI hoặc liên kết DOI</label>
+    <input id="doi" required maxlength="1024" placeholder="10.1016/j.compstruct.2021.114254" spellcheck="false" autocapitalize="none">
+    <label for="expected">Tiêu đề cần đối chiếu <span>(tùy chọn)</span></label>
+    <textarea id="expected" rows="2" maxlength="2000"></textarea>
+    <div class="actions"><button id="submit">Tra cứu Crossref</button><button type="button" id="example" class="secondary">Điền ví dụ sợi SMA</button></div>
+  </form>
+  <p id="status" role="status" aria-live="polite"></p>
+  <section id="result" hidden aria-labelledby="paper"><strong id="comparison"></strong><h2 id="paper"></h2><dl id="metadata"></dl>
+    <p id="missing"></p>
+    <div class="actions"><button type="button" id="bib">Tải .bib cho Zotero</button><a id="article">Mở bài gốc ↗</a></div>
+    <p id="bib-status" role="status"></p>
+  </section>
+  <details><summary>English quickstart · Zotero</summary><p>Paste a DOI, optionally add the title you want to check, then choose <b>Tra cứu Crossref</b>. Review the authors, venue and publication dates. Choose <b>Tải .bib cho Zotero</b>, then in Zotero select <b>File → Import → A file</b>. Title comparison runs on your device. Crossref receives the DOI.</p></details>
+  <footer><a href="https://hovinhha-research.pages.dev/topics/sma-pullout/?utm_source=github_pages&amp;utm_medium=referral&amp;utm_campaign=sma_pullout">Ba nghiên cứu về sợi SMA</a> · <a href="https://github.com/ho11-bit/donvi108-agent-skills/blob/main/examples/pilot.md">Tham gia dùng thử</a> · <a href="mailto:hahv_ph@utc.edu.vn?subject=DONVI108%20Research%20feedback">Góp ý qua email</a>
+  <p>DOI được gửi tới Crossref. Tiêu đề để đối chiếu được xử lý trên thiết bị. Khi trích dẫn một kết quả nghiên cứu, hãy kiểm tra nội dung bài gốc.</p></footer>
+</main>
+<script type="module" src="./app.mjs"></script>
+</html>
