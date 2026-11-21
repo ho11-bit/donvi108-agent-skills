@@ -2,10 +2,15 @@
 import argparse
 import asyncio
 import json
+import time
 from importlib.metadata import version
 
 URL = "https://donvi108-agent-hub-live-preview.donvi108.workers.dev/mcp"
 DEFAULT_QUERY = "phân bố xác suất hệ số khuếch tán clorua trong bê tông cốt liệu tái chế"
+
+
+class SourceUnavailable(RuntimeError):
+    pass
 
 
 def result_items(response):
@@ -19,11 +24,19 @@ def result_items(response):
             if isinstance(block, str) or isinstance(block, dict) and "text" in block:
                 return result_items(block)
     if isinstance(response, dict):
+        if response.get("error"):
+            error = response["error"]
+            if isinstance(error, dict):
+                if error.get("code") == "RESEARCH_SOURCE_UNAVAILABLE":
+                    raise SourceUnavailable("Crossref did not return usable metadata")
+                raise RuntimeError(f'{error.get("code")}: {error.get("message")}')
+            raise RuntimeError(str(error))
         if "data" in response:
             return response["data"]["items"]
         if "text" in response:
             return result_items(response["text"])
-    raise ValueError(f"Unexpected tool response type: {type(response).__name__}")
+    keys = sorted(response) if isinstance(response, dict) else []
+    raise ValueError(f"Unexpected tool response type {type(response).__name__}, fields {keys}")
 
 
 def smolagents_search(arguments):
@@ -62,16 +75,23 @@ if __name__ == "__main__":
     parser.add_argument("--qa", action="store_true", help="Label maintainer/CI traffic as internal QA")
     args = parser.parse_args()
     arguments = {"query": args.query, "limit": 5, "source": "internal-qa" if args.qa else "github"}
-    if args.adapter == "smolagents":
-        response = smolagents_search(arguments)
-        package = "smolagents"
-    elif args.adapter == "gpt-researcher":
-        response = asyncio.run(gpt_researcher_search(arguments))
-        package = "gpt-researcher"
-    else:
-        response = asyncio.run(langchain_search(arguments))
-        package = "langchain-mcp-adapters"
-    items = result_items(response)
+    package = {"smolagents": "smolagents", "langchain": "langchain-mcp-adapters",
+               "gpt-researcher": "gpt-researcher"}[args.adapter]
+    for attempt in range(2):
+        try:
+            if args.adapter == "smolagents":
+                response = smolagents_search(arguments)
+            elif args.adapter == "gpt-researcher":
+                response = asyncio.run(gpt_researcher_search(arguments))
+            else:
+                response = asyncio.run(langchain_search(arguments))
+            items = result_items(response)
+            break
+        except SourceUnavailable:
+            if attempt or not args.qa:
+                raise
+            print("Crossref unavailable. Retrying the QA query once in 20 seconds.", flush=True)
+            time.sleep(20)
     print(f"{package} {version(package)}: {len(items)} candidates")
     for item in items:
         print(item["doi"], item["title"])
