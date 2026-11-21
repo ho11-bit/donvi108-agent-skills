@@ -1,0 +1,31 @@
+name: Agent adapter pilot
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - examples/agent-adapters.py
+      - .github/workflows/agent-adapters.yml
+permissions:
+  contents: read
+jobs:
+  pilot:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - adapter: smolagents
+            package: 'smolagents[mcp]'
+          - adapter: langchain
+            package: langchain-mcp-adapters
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the selected MCP adapter
+        run: python -m pip install "${{ matrix.package }}"
+      - name: Discover the tool and retrieve a DOI
+        run: python examples/agent-adapters.py ${{ matrix.adapter }} --qa
