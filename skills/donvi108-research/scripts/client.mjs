@@ -29,8 +29,14 @@ try{
    console.log(JSON.stringify({registered:true,agent_id:value.agent.id,credential_stored:true,token_printed:false}));
   }finally{await file.close();}
  }else if(command==='search'||command==='feedback'){
-  const stored=JSON.parse(await readFile(credentialFile,'utf8'));
-  if(stored.origin!==origin||typeof stored.token!=='string')throw new Error('Credential is missing or registration outcome is uncertain; do not blindly register again');
+  let token;
+  try {
+   const stored=JSON.parse(await readFile(credentialFile,'utf8'));
+   if(stored.origin!==origin||typeof stored.token!=='string')throw new Error('Invalid saved credential. Check the credential file without disclosing it.');
+   token=stored.token;
+  } catch(error) {
+   if(error.code!=='ENOENT'||command==='feedback')throw error;
+  }
   let path,input;
   if(command==='search'){
    if(Object.keys(flags).some(k=>!['limit','source'].includes(k)))throw new Error('Unsupported search flag');
@@ -42,7 +48,7 @@ try{
    if(!argument||!['true','false'].includes(flags.useful)||!['relevant','irrelevant','missing_metadata','slow','integration','other'].includes(flags.category))throw new Error('Feedback needs call ID, --useful true|false and a documented --category');
    path='/v1/beta/feedback';input={call_id:argument,useful:flags.useful==='true',category:flags.category,comment:flags.comment??''};
   }
-  console.log(JSON.stringify(await request(path,input,stored.token),null,2));
+  console.log(JSON.stringify(await request(path,input,token),null,2));
  }else{
   console.log('Usage: client.mjs register UNIQUE-SLUG | search "PUBLIC QUERY" [--limit 3] [--source github] | feedback CALL-ID --useful true|false --category CATEGORY [--comment "PUBLIC-SAFE COMMENT"]');
   if(command)process.exitCode=1;
