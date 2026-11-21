@@ -39,6 +39,16 @@ The tested smolagents bridge uses the MCP 1.x SDK. Installing MCP 2.x with mcpad
 
 [Hugging Face MCP documentation](https://huggingface.co/docs/smolagents/tutorials/tools) · [smolagents pilot discussion](https://github.com/huggingface/smolagents/discussions/3239) · [LangChain MCP documentation](https://docs.langchain.com/oss/python/langchain/mcp) · [Deep Agents research example](https://github.com/langchain-ai/deepagents/tree/main/examples/deep_research)
 
+### Maintainer test on 21 November 2026
+
+| Client actually run | Result for the Vietnamese chloride-diffusion question |
+|---|---|
+| GPT Researcher 0.17.0, native MCP client manager | Five records. The expected DOI ranked first. |
+| smolagents 1.26.0, MCPClient with MCP SDK 1.30.0 | Five records. The expected DOI ranked first. |
+| langchain-mcp-adapters 0.3.2, MultiServerMCPClient | Five records. The expected DOI ranked first. |
+
+[Reproduce the three adapter runs](https://github.com/ho11-bit/donvi108-agent-skills/actions/runs/44868508852) · [Expected original paper](https://doi.org/10.1007/s40069-015-0123-6). These checks exercised tool discovery and retrieval. They used no language model and did not produce reports. We are collecting voluntary experiences in the two pilot discussions.
+
 ### What to report
 
 - Agent or adapter and version, query language and the public question you tried.
