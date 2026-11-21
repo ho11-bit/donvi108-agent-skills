@@ -34,6 +34,18 @@ def smolagents_search(arguments):
         return search(**arguments)
 
 
+async def gpt_researcher_search(arguments):
+    from gpt_researcher.mcp.client import MCPClientManager
+
+    manager = MCPClientManager([{"name": "donvi108", "connection_url": URL}])
+    try:
+        tools = await manager.get_all_tools()
+        search = next(tool for tool in tools if tool.name == "research_papers")
+        return await search.ainvoke(arguments)
+    finally:
+        await manager.close_client()
+
+
 async def langchain_search(arguments):
     from langchain_mcp_adapters.client import MultiServerMCPClient
 
@@ -45,7 +57,7 @@ async def langchain_search(arguments):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("adapter", choices=["smolagents", "langchain"])
+    parser.add_argument("adapter", choices=["smolagents", "langchain", "gpt-researcher"])
     parser.add_argument("query", nargs="?", default=DEFAULT_QUERY)
     parser.add_argument("--qa", action="store_true", help="Label maintainer/CI traffic as internal QA")
     args = parser.parse_args()
@@ -53,6 +65,9 @@ if __name__ == "__main__":
     if args.adapter == "smolagents":
         response = smolagents_search(arguments)
         package = "smolagents"
+    elif args.adapter == "gpt-researcher":
+        response = asyncio.run(gpt_researcher_search(arguments))
+        package = "gpt-researcher"
     else:
         response = asyncio.run(langchain_search(arguments))
         package = "langchain-mcp-adapters"

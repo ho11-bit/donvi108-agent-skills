@@ -13,11 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - adapter: smolagents
-            package: smolagents
-          - adapter: langchain
-            package: langchain-mcp-adapters
+        adapter: [smolagents, langchain, gpt-researcher]
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
@@ -31,5 +27,8 @@ jobs:
       - name: Install the LangChain adapter
         if: matrix.adapter == 'langchain'
         run: python -m pip install langchain-mcp-adapters
+      - name: Install GPT Researcher with its MCP adapter
+        if: matrix.adapter == 'gpt-researcher'
+        run: python -m pip install gpt-researcher langchain-mcp-adapters
       - name: Discover the tool and retrieve a DOI
         run: python examples/agent-adapters.py ${{ matrix.adapter }} --qa

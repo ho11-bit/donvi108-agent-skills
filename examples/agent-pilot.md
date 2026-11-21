@@ -12,6 +12,13 @@ Enable its MCP retriever using `RETRIEVER=mcp` in your environment, then pass th
 [{"name":"donvi108","connection_url":"https://donvi108-agent-hub-live-preview.donvi108.workers.dev/mcp"}]
 ```
 
+To exercise its MCP client manager without generating a report, run these commands from this repository.
+
+```sh
+python -m pip install gpt-researcher langchain-mcp-adapters
+python examples/agent-adapters.py gpt-researcher
+```
+
 [GPT Researcher configuration](https://github.com/assafelovic/gpt-researcher/blob/main/docs/docs/gpt-researcher/retrievers/mcp-configs.mdx) · [Pilot discussion](https://github.com/assafelovic/gpt-researcher/discussions/2346)
 
 ### Hugging Face smolagents and LangChain Deep Agents
