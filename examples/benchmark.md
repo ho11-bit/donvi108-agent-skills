@@ -12,3 +12,11 @@ Keep the original SMA evaluation set. Run these additional cases separately on e
 | B6 | “Bài về độ bền bê tông” là bài nào? | Identify “the concrete durability paper”, with no other identifying information | Insufficient information. Ask for an author, title fragment, DOI or year. No single DOI is accepted. |
 
 Record date, language, surface, case ID, rank or missing, and the returned DOI. Mark a timeout or rate limit as unavailable. For B5 and B6 record the decision separately. Only the first four rows enter the top-five discovery rate. For an AI answer, also note whether its cited primary source actually supports the stated result. A new relevant candidate may be recorded for review outside the predeclared score.
+
+## Observations on 21 November 2026
+
+All 16 live keyword requests succeeded. The accepted work appeared in the top five for 3/4 English queries on both REST and MCP. Ranks for B1–B4 were absent, 1, 1 and 2. None of the four full Vietnamese questions returned the predeclared DOI in the top five on either interface. The sample is too small to estimate overall recall. A generated AI answer or a human citation was outside this measurement.
+
+For an English-language journal, search a distinctive English title fragment or combine the material, test and variable. For example, “hệ số khuếch tán clorua trong bê tông cốt liệu tái chế” can be searched as “chloride diffusion coefficient recycled aggregate concrete”. If you already have a DOI, use the exact checker.
+
+[Full timestamped results with all returned DOIs](results-2026-11-21.json) · [Reproducible run](https://github.com/ho11-bit/donvi108-agent-skills/actions/runs/44862405684)
