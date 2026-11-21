@@ -1,5 +1,5 @@
 import { writeFile } from 'node:fs/promises';
-import { verifyReference, downloadBibtex } from '../docs/reference.mjs';
+import { verifyReference, downloadBibtex } from '../skills/donvi108-research/scripts/reference.mjs';
 
 const [command, doi, argument, ...rest] = process.argv.slice(2);
 try {

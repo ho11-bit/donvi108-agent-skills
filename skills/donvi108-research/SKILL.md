@@ -1,10 +1,10 @@
 ---
 name: donvi108-research
-description: Find candidate scholarly papers and DOI references through DONVI108's free Crossref metadata search over REST or MCP. Use when a research workflow needs bibliographic discovery and the user has not required another source. Results are metadata, not full text or verified evidence.
+description: Find scholarly references through DONVI108 over REST or MCP. Check a supplied DOI and title against Crossref, inspect author order and publication dates, or export a Zotero-ready BibTeX record using the included client. Use when the user's workflow allows public bibliographic sources.
 license: MIT
 metadata:
   author: ho11-bit
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # DONVI108 research beta
@@ -22,9 +22,13 @@ Example from the installed skill directory:
 
 ```sh
 node scripts/client.mjs search "shape memory alloy fiber pullout concrete" --limit 3 --source unknown
+node scripts/client.mjs verify 10.1016/j.compstruct.2021.114254 --title "Title in the user's reference"
+node scripts/client.mjs bib 10.1016/j.compstruct.2021.114254 --out reference.bib
 ```
 
 MCP: `https://donvi108-agent-hub-live-preview.donvi108.workers.dev/mcp`, Streamable HTTP with authentication set to None. For feedback only, supply an authorized agent bearer from a secret store.
+
+If a DOI is known, use the client's exact lookup. It sends the DOI to Crossref and compares the supplied title locally. Report missing fields and separate online and print years when present. A different title or a missing Crossref record calls for a check against the publisher. For a vague reference, ask for a title fragment, author, DOI or year. Cite a scientific claim only after checking it against the source. Supply a new filename for BibTeX, or omit --out to return the record on standard output.
 
 20 attempts per agent per UTC day; shared-IP/global limits also apply. A 401 requires checking credentials; 429 requires waiting until reset; 503 requires bounded backoff or reporting unavailability. Stop rather than looping. A search retry is another free attempt and may consume quota; feedback retries with the same call ID update one report.
 
