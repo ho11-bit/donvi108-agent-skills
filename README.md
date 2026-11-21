@@ -11,6 +11,10 @@ Source: Crossref public bibliographic metadata. Results are candidate references
 - [Service status](https://donvi108-agent-status-live-preview.donvi108.workers.dev/)
 - [Privacy](https://donvi108-agent-hub-live-preview.donvi108.workers.dev/privacy.md)
 
+[![DONVI108 on mcptry](https://mcptry.com/badge/io.github.ho11-bit/donvi108-research)](https://mcptry.com/servers/io.github.ho11-bit/donvi108-research)
+
+[Worked example · Three SMA pullout studies (Vietnamese / English)](examples/sma-pullout.md)
+
 ## Install the skill
 
 Review the skill and script first. From an Agent Skills compatible client:
