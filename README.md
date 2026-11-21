@@ -16,6 +16,26 @@ Source: Crossref public bibliographic metadata. Results are candidate references
 
 [Worked example · Three SMA pullout studies (Vietnamese / English)](examples/sma-pullout.md)
 
+## Check a reference in one minute
+
+**Readers / Người đọc.** [Kiểm tra DOI và tải BibTeX](https://ho11-bit.github.io/donvi108-agent-skills/). Dán DOI và tiêu đề cần kiểm tra. Trang hiển thị tác giả theo thứ tự, ấn phẩm, năm online và năm in khi có. Chọn **Tải .bib cho Zotero**, sau đó **File → Import → A file**. [Tìm bài khi mới có từ khóa](https://donvi108-agent-hub-live-preview.donvi108.workers.dev/research).
+
+**Developers.** From this repository, use Python 3 for discovery or Node.js 22+ to resolve and export an exact Crossref DOI. No credentials or dependencies are required. The comparison is local. Crossref receives the DOI.
+
+```sh
+python examples/search.py "chloride diffusion recycled aggregate"
+node examples/reference.mjs verify 10.1016/j.compstruct.2021.114254 "Your reference title"
+node examples/reference.mjs bib 10.1016/j.compstruct.2021.114254 paper.bib
+```
+
+MCP clients that accept a remote HTTP server URL can use the following entry. The MCP server offers topic search. The web page and Node commands above handle exact matching and export.
+
+```json
+{"mcpServers":{"donvi108-research":{"url":"https://donvi108-agent-hub-live-preview.donvi108.workers.dev/mcp"}}}
+```
+
+[Try the two-minute pilot or send feedback](examples/pilot.md) · [Six additional civil-engineering checks](examples/benchmark.md)
+
 ## Install the skill
 
 Review the skill and script first. From an Agent Skills compatible client:
