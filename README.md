@@ -36,6 +36,10 @@ MCP clients that accept a remote HTTP server URL can use the following entry. Th
 
 [Try the two-minute pilot or send feedback](examples/pilot.md) · [Six additional civil-engineering checks](examples/benchmark.md)
 
+[Watch the 48-second DOI and Zotero walkthrough](https://ho11-bit.github.io/donvi108-agent-skills/demo.mp4). The [five-record Zotero import](https://github.com/ho11-bit/donvi108-agent-skills/actions/runs/44861704836) checked real Crossref exports against Zotero translation-server for DOI, title, publication year and author order.
+
+The [service metrics](https://donvi108-agent-hub-live-preview.donvi108.workers.dev/v1/beta/metrics) include anonymous keyword request totals per UTC day in `anonymous_daily`. Each row counts successful responses with items or an empty list, by caller-reported channel. Operator checks use `internal-qa`. Direct DOI lookups on this site go to Crossref and are outside these counts. Repeat users are assessed through voluntary pilot follow-up.
+
 ## Install the skill
 
 Review the skill and script first. From an Agent Skills compatible client:

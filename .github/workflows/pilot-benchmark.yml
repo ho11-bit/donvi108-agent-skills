@@ -1,0 +1,22 @@
+name: Bilingual search benchmark
+on:
+  workflow_dispatch:
+  push:
+    tags: ['research-pilot-*']
+permissions:
+  contents: read
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node test/pilot-benchmark.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bilingual-search-results
+          path: pilot-benchmark.json
+          retention-days: 90
