@@ -19,13 +19,16 @@ jobs:
   zotero:
     if: github.event_name != 'pull_request'
     needs: offline
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: 7
     services:
       translation:
         image: zotero/translation-server
         ports:
           - 1969:1969
+        options: >-
+          --health-cmd="node -e \"require('http').get('http://127.0.0.1:1969/',r=>process.exit(0)).on('error',()=>process.exit(1))\""
+          --health-interval=5s --health-timeout=4s --health-retries=15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

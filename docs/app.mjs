@@ -16,6 +16,8 @@ const fieldNames = {title:'tiêu đề', authors:'tác giả', venue:'tạp chí
 const errorText = error => messages[error.message] || 'Chưa kết nối được với Crossref hoặc nguồn đang bận. Vui lòng thử lại sau.';
 let current;
 let generation = 0;
+const linkedDoi = new URLSearchParams(location.search).get('doi');
+if (linkedDoi && linkedDoi.length <= 1024) el('doi').value = linkedDoi;
 function reset() {
   generation += 1;
   current = null;
