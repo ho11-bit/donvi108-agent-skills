@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import {mkdir,open,readFile} from 'node:fs/promises';
+import {mkdir,open,readFile,writeFile} from 'node:fs/promises';
+import {verifyReference,downloadBibtex} from './reference.mjs';
 import {homedir} from 'node:os';
 import {join} from 'node:path';
 const origin='https://donvi108-agent-hub-live-preview.donvi108.workers.dev';
@@ -15,7 +16,17 @@ async function request(path,input,token){
  return body.data;
 }
 try{
- if(command==='register'){
+ if(command==='verify'||command==='bib'){
+  const allowed = command==='verify'?'title':'out';
+  if(!argument||Object.keys(flags).some(k=>k!==allowed))throw new Error('Use verify DOI [--title "TITLE"] or bib DOI [--out NEW-FILE.bib]');
+  if(command==='verify'){
+   console.log(JSON.stringify(await verifyReference(argument,flags.title),null,2));
+  }else{
+   const bib=await downloadBibtex(argument);
+   if(flags.out)await writeFile(flags.out,bib,{encoding:'utf8',flag:'wx'});
+   else process.stdout.write(bib);
+  }
+ }else if(command==='register'){
   if(!/^[a-z0-9][a-z0-9-]{2,59}$/.test(argument??''))throw new Error('Provide a unique public lowercase slug (3-60 characters).');
   if(Object.keys(flags).length)throw new Error('No registration flags supported');
   await mkdir(directory,{recursive:true,mode:0o700});
@@ -50,10 +61,10 @@ try{
   }
   console.log(JSON.stringify(await request(path,input,token),null,2));
  }else{
-  console.log('Usage: client.mjs register UNIQUE-SLUG | search "PUBLIC QUERY" [--limit 3] [--source github] | feedback CALL-ID --useful true|false --category CATEGORY [--comment "PUBLIC-SAFE COMMENT"]');
+  console.log('Usage: client.mjs verify DOI [--title "TITLE"] | bib DOI [--out NEW-FILE.bib] | register UNIQUE-SLUG | search "PUBLIC QUERY" [--limit 3] [--source github] | feedback CALL-ID --useful true|false --category CATEGORY [--comment "PUBLIC-SAFE COMMENT"]');
   if(command)process.exitCode=1;
  }
 }catch(error){
- const known=error?.code==='EEXIST'?'Credential file already exists; registration stopped. Use it if valid, or inspect an uncertain registration outcome without exposing its contents.':error?.code==='ENOENT'?'No saved credential. Register once first.':String(error.message??'Request failed');
+ const known=error?.code==='EEXIST'?(command==='bib'?'Output file already exists. Choose a new .bib filename.':'Credential file already exists; registration stopped. Use it if valid, or inspect an uncertain registration outcome without exposing its contents.'):error?.code==='ENOENT'&&command==='feedback'?'No saved credential. Register once first.':String(error.message??'Request failed');
  console.error(known.replace(/dv108\.[A-Z0-9-]+\.[a-f0-9]{64}/gi,'[REDACTED]'));process.exitCode=1;
 }

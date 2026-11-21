@@ -50,6 +50,8 @@ npx skills add ho11-bit/donvi108-agent-skills --skill donvi108-research
 
 Alternatively, copy `skills/donvi108-research` into your client's skill directory. Installing a skill does not itself authorize network calls, disclose data, or spend money. Use it when it fits the user's research task.
 
+From that directory, `node scripts/client.mjs verify DOI --title "Title to check"` compares a citation; `node scripts/client.mjs bib DOI --out paper.bib` saves a new file. Both commands work without registration.
+
 ## Try without an agent runtime
 
 Node.js 22 or newer, no npm dependencies for this helper:
