@@ -29,7 +29,7 @@ def result_items(response):
 def smolagents_search(arguments):
     from smolagents import MCPClient
 
-    with MCPClient({"url": URL, "transport": "streamable-http"}) as tools:
+    with MCPClient({"url": URL, "transport": "streamable-http"}, structured_output=False) as tools:
         search = next(tool for tool in tools if tool.name == "research_papers")
         return search(**arguments)
 

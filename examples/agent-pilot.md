@@ -19,7 +19,7 @@ Enable its MCP retriever using `RETRIEVER=mcp` in your environment, then pass th
 From this repository, pick the adapter you use. These commands list tools and make one bibliographic request through that adapter. For a full agent, supply the discovered research tool to your existing CodeAgent or research agent using your own model.
 
 ```sh
-python -m pip install "smolagents[mcp]"
+python -m pip install "smolagents[mcp]" "mcp>=1.15,<2"
 python examples/agent-adapters.py smolagents
 ```
 
@@ -27,6 +27,8 @@ python examples/agent-adapters.py smolagents
 python -m pip install langchain-mcp-adapters
 python examples/agent-adapters.py langchain "shrinkage in fly ash concrete"
 ```
+
+The tested smolagents bridge uses the MCP 1.x SDK. Installing MCP 2.x with mcpadapt 0.1.20 fails during import, before it connects to a server.
 
 [Hugging Face MCP documentation](https://huggingface.co/docs/smolagents/tutorials/tools) · [smolagents pilot discussion](https://github.com/huggingface/smolagents/discussions/3239) · [LangChain MCP documentation](https://docs.langchain.com/oss/python/langchain/mcp) · [Deep Agents research example](https://github.com/langchain-ai/deepagents/tree/main/examples/deep_research)
 

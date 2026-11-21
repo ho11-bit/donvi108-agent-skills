@@ -15,7 +15,7 @@ jobs:
       matrix:
         include:
           - adapter: smolagents
-            package: 'smolagents[mcp]'
+            package: smolagents
           - adapter: langchain
             package: langchain-mcp-adapters
     runs-on: ubuntu-latest
@@ -25,7 +25,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install the selected MCP adapter
-        run: python -m pip install "${{ matrix.package }}"
+      - name: Install smolagents and its compatible MCP SDK
+        if: matrix.adapter == 'smolagents'
+        run: python -m pip install 'smolagents[mcp]' 'mcp>=1.15,<2'
+      - name: Install the LangChain adapter
+        if: matrix.adapter == 'langchain'
+        run: python -m pip install langchain-mcp-adapters
       - name: Discover the tool and retrieve a DOI
         run: python examples/agent-adapters.py ${{ matrix.adapter }} --qa
