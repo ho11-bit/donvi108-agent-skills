@@ -16,6 +16,8 @@ Source: Crossref public bibliographic metadata. Results are candidate references
 
 [Worked example · Three SMA pullout studies (Vietnamese / English)](examples/sma-pullout.md)
 
+[Try GPT Researcher, Hugging Face smolagents or LangChain](examples/agent-pilot.md) · [English and Vietnamese search results before and after](examples/benchmark.md)
+
 ## Check a reference in one minute
 
 **Readers / Người đọc.** [Kiểm tra DOI và tải BibTeX](https://ho11-bit.github.io/donvi108-agent-skills/). Dán DOI và tiêu đề cần kiểm tra. Trang hiển thị tác giả theo thứ tự, ấn phẩm, năm online và năm in khi có. Chọn **Tải .bib cho Zotero**, sau đó **File → Import → A file**. [Tìm bài khi mới có từ khóa](https://donvi108-agent-hub-live-preview.donvi108.workers.dev/research).

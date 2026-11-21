@@ -13,10 +13,23 @@ Keep the original SMA evaluation set. Run these additional cases separately on e
 
 Record date, language, surface, case ID, rank or missing, and the returned DOI. Mark a timeout or rate limit as unavailable. For B5 and B6 record the decision separately. Only the first four rows enter the top-five discovery rate. For an AI answer, also note whether its cited primary source actually supports the stated result. A new relevant candidate may be recorded for review outside the predeclared score.
 
-## Observations on 21 November 2026
+## Baseline on 21 November 2026
 
 All 16 live keyword requests succeeded. The accepted work appeared in the top five for 3/4 English queries on both REST and MCP. Ranks for B1–B4 were absent, 1, 1 and 2. None of the four full Vietnamese questions returned the predeclared DOI in the top five on either interface. The sample is too small to estimate overall recall. A generated AI answer or a human citation was outside this measurement.
 
 For an English-language journal, search a distinctive English title fragment or combine the material, test and variable. For example, “hệ số khuếch tán clorua trong bê tông cốt liệu tái chế” can be searched as “chloride diffusion coefficient recycled aggregate concrete”. If you already have a DOI, use the exact checker.
 
 [Full timestamped results with all returned DOIs](results-2026-11-21.json) · [Reproducible run](https://github.com/ho11-bit/donvi108-agent-skills/actions/runs/44862405684)
+
+## After Vietnamese keyword matching · 21 November 2026
+
+The same 16 requests ran against Worker `0df3899f`. The query interpreter matches common Vietnamese civil-engineering terms to English search terms for Crossref. The response includes the effective query. Use `verbatim: true` for exact wording.
+
+| Known DOI in the top five | English before | English after | Vietnamese before | Vietnamese after |
+|---|---:|---:|---:|---:|
+| REST | 3/4 | 3/4 | 0/4 | 3/4 |
+| MCP | 3/4 | 3/4 | 0/4 | 3/4 |
+
+The Vietnamese ranks after the change were missing, 1, 1 and 2 for B1–B4. The deep-beam shear study B1 was missing in both languages. All calls succeeded. Four preselected cases measure retrieval on those questions only. Independent usage and citation accuracy in a generated report need separate observations.
+
+[Returned DOIs and timestamps](results-vi-keywords-2026-11-21.json) · [Live repeat run](https://github.com/ho11-bit/donvi108-agent-skills/actions/runs/44867694009) · [Test with your own question](agent-pilot.md)
