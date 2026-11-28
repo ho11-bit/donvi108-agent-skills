@@ -3,7 +3,7 @@
 Mời giảng viên, học viên và người viết tổng quan thử công cụ bằng **một trích dẫn công khai anh chị đang cần**. Mất khoảng hai phút. Nếu mới có từ khóa, bắt đầu tại trang tìm bài. Nếu đã có DOI, mở trang đối chiếu.
 
 1. [Tìm theo chủ đề](https://donvi108-agent-hub-live-preview.donvi108.workers.dev/research) hoặc [dán DOI](https://ho11-bit.github.io/donvi108-agent-skills/).
-2. Nhập tiêu đề từ danh mục tài liệu của mình. Kiểm tra tác giả, tạp chí, năm online và năm in nếu có. Mở bài gốc khi cần xác nhận một kết luận.
+2. Nếu tìm theo tiêu đề hoặc từ khóa, chọn bài phù hợp và sao chép DOI. Trên trang **Kiểm tra DOI**, dán DOI hoặc liên kết doi.org vào ô **DOI hoặc liên kết DOI**. Có thể nhập thêm tiêu đề từ danh mục tài liệu để đối chiếu. Kiểm tra tác giả, tạp chí, năm online và năm in nếu có. Mở bài gốc khi cần xác nhận một kết luận.
 3. Tải tệp .bib. Trong Zotero chọn **File → Import → A file**, rồi đối chiếu DOI và thứ tự tác giả.
 4. Cho biết **đã làm đến bước nào, mất khoảng bao lâu và bước nào khó nhất**. Một trường hợp không tìm được bài cũng giúp cải thiện công cụ. Nếu dùng lại vào ngày khác, anh chị có thể trả lời trong cùng cuộc trao đổi.
 
